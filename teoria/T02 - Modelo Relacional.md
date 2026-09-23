@@ -1,4 +1,4 @@
-# Modelo Relacional
+	# Modelo Relacional
 
 ---
 tags: database, lecture, relational-model
@@ -173,6 +173,9 @@ Esta formalización matemática es lo que hace que el modelo relacional sea tan 
 - Por ejemplo: $r(R)$ podría ser {(0,a), (0,b), (1,c)}
 	- este es un posible estado (o “población” o “extensión” ) r de la relación R, definida sobre $A_1$ y $A_2$.
 	- tiene tres tuplas de grado 2: (0,a), (0,b), (1,c)
+
+> [!tip]- NOTA. Sobre estado e instancia:
+>El estado describe las tuplas de la instancia. La base de datos sería la instancia, cada entrada una tupla y el cómo son los datos su estado.
 
 ### Características de las relaciones
 

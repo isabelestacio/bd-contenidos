@@ -27,7 +27,7 @@ Los objetivos de aprendizaje de la sesión son:
 - Un DBMS puede ser una **biblioteca integrada** en otros programas (SQLite) o un **servidor** (PostgreSQL, Oracle)
 - Un **sistema gestor de bases de datos relacionales** (RDBMS) almacena los datos en **tablas** y utiliza **SQL** para las consultas
 - Desafortunadamente, cada RDBMS tiene su propio **dialecto de SQL**
-
+> [!success] Están diseñadas para realizarles consultas.
 ---
 ### SQL
 
@@ -43,6 +43,7 @@ Especifica varios **sublenguajes**, entre otros:
 
 - **Lenguaje de Definición de Datos** (LDD) para crear, modificar y borrar objetos de la base de datos (create, alter y drop).
 - **Lenguaje de Manipulación de Datos** (LMD) para consultar y manipular los datos (select, insert, update y delete). En esta lección, solo consultaremos datos con select.
+> [!success] Tu preocupación no es "¿Cómo hago esto?" sino "Quiero esto". Ya se encarga de optimizar tus consultas la base de datos.
 
 ---
 
@@ -264,7 +265,7 @@ Escribe una consulta SQL para seleccionar las columnas título (`titulo`) y repr
 
 Solución:
 ```sql
-
+select titulo, reproducciones from cancion_muestra order by reproducciones desc;
 ```
 
 | titulo                | reproducciones |
@@ -408,7 +409,7 @@ Escribe una consulta para seleccionar las distintas combinaciones de país (`pai
 
 Solución:
 ```sql
-
+select distinct pais, genero from cancion;
 ```
 
 | pais           | genero |
@@ -463,7 +464,7 @@ Escribe una consulta para seleccionar las reproducciones (`reproducciones`) de l
 
 Solución:
 ```sql
-
+select reproducciones from cancion where reproducciones < 1000000;
 ```
 
 | reproducciones |
@@ -486,7 +487,7 @@ Escribe otra consulta para seleccionar el género (`genero`) y el idioma (`idiom
 
 Solución:
 ```sql
-
+select distinct genero, idioma from cancion where reproducciones < 1000000;
 ```
 
 | genero | idioma |
@@ -556,7 +557,7 @@ Utiliza el operador not para seleccionar las canciones (solo las columnas `titul
 
 Solución:
 ```sql
-
+select titulo, genero, pais from cancion where genero != 'Rap';
 ```
 
 | titulo                     | genero | pais           |
@@ -597,7 +598,7 @@ El operador `OR` de SQL es un operador ‘o inclusivo’: se ejecuta correctamen
 
 Solución:
 ```sql
-
+select titulo, idioma, pais from cancion where (idioma = 'ES' and pais != 'España') or (idioma != 'ES' and pais = 'España');
 ```
 
 | titulo           | idioma | pais           |
@@ -705,7 +706,7 @@ Escribe una consulta que calcule y devuelva una columna llamada `porcentaje_me_g
 
 Solución:
 ```sql
-
+select round(me_gusta*1.0/reproducciones*100,1) as porcentaje_me_gusta from cancion limit 10;
 ```
 
 | porcentaje_me_gusta |
@@ -772,7 +773,7 @@ Escribe una consulta que calcule y devuelva una columna llamada `que_donde` que 
 
 Solución:
 ```sql
-
+select distinct genero||' '||pais as que_donde from cancion;
 ```
 
 | que_donde           |
