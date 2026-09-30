@@ -21,8 +21,13 @@ Escribe una consulta que calcule y devuelva una columna llamada `que_donde` que 
 
 Solución:
 ```sql
-
-
+select
+upper(genero) ||" "|| lower(pais) as que_donde,
+round(me_gusta*100.0/reproducciones,1) as porcentaje_me_gusta
+from cancion
+where idioma != "ES"
+order by porcentaje_me_gusta desc
+limit 10
 ```
 
 Resultado:
@@ -167,7 +172,17 @@ Para emitir una canción en la radio hay que añadirle una cuña publicitaria. E
 
 Solución:
 ```sql
-
+select distinct
+titulo,
+pais,
+duracion,
+case
+	when pais = 'Reino Unido' then round((duracion+30)*1.0/60,2)
+	when pais = 'España' then round((duracion+45)*1.0/60,2)
+end as duracion_radio_min
+from cancion
+order by duracion desc
+limit 20
 
 ```
 
@@ -371,8 +386,9 @@ Escribe una consulta para encontrar las canciones (`cancion`) cuya duración (`d
 
 Solución:
 ```sql
-
-
+select *
+from cancion
+where duracion is not null and idioma is null
 ```
 
 Resultado:
@@ -471,8 +487,11 @@ Escribe una consulta que devuelva todas las columnas de las canciones y añada u
 
 Solución:
 ```sql
-
-
+select *,
+coalesce(duracion,reproducciones,me_gusta,valoracion,-1) as primer_dato
+from cancion
+order by id_cancion desc
+limit 10
 ```
 
 Resultado:
@@ -543,8 +562,10 @@ Salida:
 - SQL hace lo que es útil en lugar de lo que es correcto
 	- Ignora las filas con valores nulos
 
->[!question] Pregunta
+>[!question]- Pregunta
 >¿Qué devolverá la función `avg` si todos los valores son nulos?
+>*Probablemente NULL*
+
 
 ---
 
@@ -554,8 +575,10 @@ Salida:
 
 Solución:
 ```sql
-
-
+select
+avg(reproducciones)
+from cancion
+where reproducciones >1000000
 ```
 
 Resultado:
@@ -594,8 +617,10 @@ Salida:
 
 Solución:
 ```sql
-
-
+select
+count(*) as no_ingles
+from cancion
+where lower(coalesce(idioma,'a')) != 'en'
 ```
 
 Resultado:
