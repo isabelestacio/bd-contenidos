@@ -601,6 +601,10 @@ Escribe una consulta que cuente las canciones que **no** están en inglés, cont
 Solución:
 
 ```sql
+select
+count(*) as no_ingles
+from cancion
+where lower(coalesce(idioma,'a')) != 'en'
 ```
 
 Resultado:
@@ -717,9 +721,8 @@ Salida:
 Solución:
 ```sql
 select
-count(*) as no_ingles
+count(distinct anio) as anios_distintos
 from cancion
-where lower(coalesce(idioma,'a')) != 'en'
 ```
 
 Resultado:
@@ -788,8 +791,11 @@ Escribe una consulta que muestre cada año de publicación (`anio`) distinto en 
 
 Solución:
 ```sql
-
-
+select
+	anio,
+	count(id_cancion) as canciones_mismo_anio
+from cancion
+group by  anio
 ```
 
 Resultado:
@@ -905,8 +911,11 @@ Escribe una consulta que cuente el número de canciones de cada una de las sigui
 
 Solución:
 ```sql
-
-
+select
+	count(id_cancion) filter (where duracion < 200) as corta,
+	count(id_cancion) filter (where duracion >= 200 and duracion <= 300) as media,
+	count(id_cancion) filter (where duracion > 300) as larga
+from cancion
 ```
 
 Resultado:

@@ -21,7 +21,12 @@ Escribe una consulta para obtener el nombre del departamento, su director, su fe
 
 Solución:
 ```sql
-
+select
+	nombre,
+	director,
+	date(fechaIngresoDirector) as fecha,
+	max(strftime("%m",fechaIngresoDirector)) as mes
+from departamento
 ```
 
 Tabla resultado:
@@ -170,7 +175,12 @@ Tabla resultado:
 Escribe una consulta que devuelva el nombre de cada proyecto (nombre_proyecto) y el total de horas trabajadas en cada uno (total_horas_dedicadas), ordena los resultados por las horas trabajabas empezando por el de mayor horas. 
 
 ```sql
-
+select
+	proyecto.nombre as nombre_proyecto,
+	sum(trabaja_en.horas) as total_horas_dedicadas
+from proyecto inner join trabaja_en on trabaja_en.proyecto = proyecto.numero
+group by nombre_proyecto
+order by total_horas_dedicadas desc
 ```
 
 Tabla resultado:
@@ -260,7 +270,14 @@ Escribe una consulta que devuelva el nombre (nombre_empleado) y apellido1 de emp
 Solución:
 
 ```sql
-
+select
+	E.nombre as nombre_empleado,
+	E.apellido1 as apellido1,
+	P.nombre as nombre_proyecto,
+	P.ubicacion as ubicacion
+from empleado E INNER JOIN trabaja_en TE on E.dni = TE.empleado
+INNER JOIN proyecto P on P.numero = TE.proyecto
+order by nombre_empleado
 ```
 
 Tabla resultado:
@@ -320,7 +337,13 @@ Tabla resultado:
 Escribe una consulta que devuelva los empleados que ganan entre 2000 y 10000 euros menos que su supervisor directo. Las columnas resultado deben ser: nombre_empleado, sueldo_empleado, nombre_supervisor y sueldo_supervisor.
 
 ```sql
-
+select
+	E.nombre as nombre_empleado,
+	E.sueldo as sueldo_empleado,
+	S.nombre as nombre_supervisor,
+	S.sueldo as sueldo_supervisor
+from empleado E INNER JOIN empleado S ON S.dni = E.supervisor
+where sueldo_empleado between sueldo_supervisor-10000 AND sueldo_supervisor-2000
 ```
 
 Tabla resultado:
@@ -486,7 +509,13 @@ INSERT INTO Proyecto VALUES ('ProductoGTP',6,'Madrid',5);
 
 Solución:
 ```sql
-
+select
+	P.nombre as nombre_proyecto,
+	E.nombre as nombre_empleado,
+	TE.horas as horas
+from proyecto P left join trabaja_en TE on TE.proyecto = P.numero
+left join empleado E on TE.empleado = E.dni
+order by nombre_proyecto, nombre_empleado
 ```
 
 Tabla resultado:

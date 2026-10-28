@@ -1,4 +1,4 @@
-# Fechas y Consultas Combinadas
+nos# Fechas y Consultas Combinadas
 
 ---
 
@@ -23,7 +23,6 @@ Escribe una consulta que devuelva el sueldo medio por departamento para departam
 
 Solución:
 ```sql
-
 ```
 
 Resultado:
