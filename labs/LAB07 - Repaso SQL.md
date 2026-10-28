@@ -1,5 +1,3 @@
-# LAB07 - Repaso SQL
-
 ## Objetivos
 
 Repasar los contenidos trabajados en los laboratorios 1 al 6 mediante ejercicios de complejidad creciente:

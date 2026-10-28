@@ -1,7 +1,3 @@
-nos# Fechas y Consultas Combinadas
-
----
-
 ## Objetivos
 
 Los objetivos de aprendizaje de la sesión son:
